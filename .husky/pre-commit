@@ -1,0 +1,3 @@
+npx next lint
+npm run test:run
+npx lint-staged

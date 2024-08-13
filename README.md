@@ -1,8 +1,17 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">⭐ NextJS Habit Loop APP ⭐</h1>
+<p align="center">
+  <a href="https://nodejs.org/docs/latest-v20.x/api/index.html"><img src="https://img.shields.io/badge/node-20.x-green.svg" alt="node"/></a>
+  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/typescript-5.x-blue.svg" alt="typescript"/></a>
+  <a href="https://docs.nestjs.com/v10/"><img src="https://img.shields.io/badge/npm-10.x-red.svg" alt="npm"/></a>
+  <a href="https://ui.shadcn.com/"><img src="https://img.shields.io/badge/ui.shadcn-in_use-orange?style=flat&logo=shieldsdotio" alt="ui.shadcn"/></a>
+  <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-v14.2-blue?style=flat&logo=next.js" alt="nextjs"/></a>
+  <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/Dockerized 🐳_-blue.svg" alt="docker"/></a>
+  <a href="https://tailwindcss.com/"><img src="https://img.shields.io/badge/Tailwind_CSS-in_use-06B6D4?style=flat&logo=tailwindcss" alt="tailwindcss"/></a>
+</p>
 
-## Getting Started
+## 🧑‍💻 Developing
 
-First, run the development server:
+First, if you want to start the app local,run the development server:
 
 ```bash
 npm run dev
@@ -14,23 +23,42 @@ pnpm dev
 bun dev
 ```
 
+if we want to start the app in **development mode** with docker, we just need to run:
+
+```bash
+docker-compose up -d dev
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Also, if you want to run the **production mode**, you can run:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+docker-compose up -d prod
+```
 
-## Learn More
+If you want to stop developing, you can stop the service running:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+docker-compose down
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ⚙️ Building
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+npm run build
+```
 
-## Deploy on Vercel
+## ✅ Testing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+run all of them you can run:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+npm run test
+```
+
+To run the linter you can execute:
+
+```bash
+npm run lint
+```

@@ -15,7 +15,6 @@ jobs:
 
       - name: Build Docker image
         env:
-          LOGGER_LEVEL: ${{ secrets.LOGGER_LEVEL }}
           PORT: ${{ secrets.PORT }}
         run: docker compose up -d --build prod
 

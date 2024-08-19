@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: env-config
+  name: env-config-frontend
   labels:
     app: habit-loop
 data:

@@ -38,6 +38,7 @@ CMD npm start
 
 FROM base AS dev
 ENV NODE_ENV=development
+ENV PORT=3001
 RUN npm install
 COPY . .
 CMD npm run dev

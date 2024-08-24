@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: habit-loop-frontend
+  labels:
+    app: habit-loop-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: habit-loop-frontend
+  template:
+    metadata:
+      labels:
+        app: habit-loop-frontend
+    spec:
+      containers:
+        - name: habit-loop-frontend
+          image: erickneitor/habit-loop-frontend
+          ports:
+            - containerPort: 3001
+              protocol: TCP
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config-frontend
+                  key: PORT
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+      restartPolicy: Always

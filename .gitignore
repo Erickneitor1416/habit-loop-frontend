@@ -38,3 +38,6 @@ next-env.d.ts
 
 #enviroment
 .env
+
+# vscode
+.vscode

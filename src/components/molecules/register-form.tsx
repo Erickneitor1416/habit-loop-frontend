@@ -4,18 +4,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { toast } from '@/components/ui/use-toast';
+import { Form, FormField } from '@/components/ui/form';
 import { RegisterUser, User } from '@/user/domain';
+import { registerAction } from '@/user/infrastructure/actions/user.form-actions';
+import { InputForm } from '../atoms/input-form';
+import { toast } from '../ui/use-toast';
 
 export function RegistrationForm() {
   const form = useForm<User>({
@@ -27,16 +20,34 @@ export function RegistrationForm() {
     },
   });
 
-  function onSubmit(data: User) {
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-  }
+  const onSubmit = async (data: User) => {
+    const isSaved = registerAction(data);
+    if (!isSaved) {
+      toast({
+        title: 'Invalid form data',
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">
+              {
+                "The form data you've entered is invalid. Please check the form fields and try again"
+              }
+            </code>
+          </pre>
+        ),
+      });
+    } else {
+      toast({
+        title: 'User registered',
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">
+              {'The user has been registered successfully'}
+            </code>
+          </pre>
+        ),
+      });
+    }
+  };
 
   return (
     <div className="flex-1 flex justify-center min-w-xl">
@@ -45,53 +56,44 @@ export function RegistrationForm() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-2/3 space-y-6"
         >
+          <div className="text-2xl font-bold ">Register</div>
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Name" {...field} />
-                </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
+              <InputForm
+                label="Name"
+                placeholder="Name"
+                description="This is your public display name."
+                {...field}
+              />
             )}
           />
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input type="email" placeholder="Email" {...field} />
-                </FormControl>
-                <FormDescription>
-                  We&apos;ll never share your email with anyone else.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
+              <InputForm
+                label="Email"
+                type="email"
+                placeholder="Email"
+                description="We'll never share your email with anyone else."
+                {...field}
+              />
             )}
           />
           <FormField
             control={form.control}
             name="password"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input type="password" placeholder="password" {...field} />
-                </FormControl>
-                <FormDescription>
-                  Use at least one lowercase letter, one numeral, and seven
-                  characters.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
+              <InputForm
+                label="Password"
+                type="password"
+                placeholder="Password"
+                description="Use at least one lowercase letter, one numeral, and seven
+                  characters."
+                {...field}
+              />
             )}
           />
 

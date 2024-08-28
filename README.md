@@ -29,7 +29,7 @@ if we want to start the app in **development mode** with docker, we just need to
 docker-compose up -d dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3001](http://localhost:3001) with your browser to see the result.
 
 Also, if you want to run the **production mode**, you can run:
 

@@ -22,6 +22,7 @@ FROM base AS production
 WORKDIR /app
 
 ENV NODE_ENV=production
+ENV PORT=3001
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001

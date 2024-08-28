@@ -1,10 +1,10 @@
 import { RegistrationForm } from '@/components';
 import { toast } from '@/components/ui/use-toast';
-import { registerAction } from '@/user/infrastructure/actions/user.form-actions';
+import { registerAction } from '@/user/infrastructure/actions/user-form.actions';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, Mock, vi } from 'vitest';
 
-vi.mock('@/user/infrastructure/actions/user.form-actions', () => ({
+vi.mock('@/user/infrastructure/actions/user-form.actions', () => ({
   registerAction: vi.fn(),
 }));
 

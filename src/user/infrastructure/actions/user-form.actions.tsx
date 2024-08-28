@@ -1,7 +1,7 @@
 'use server';
 import { RegisterUserUseCase } from '@/user/application/register-user.use-case';
 import { RegisterUser, User } from '@/user/domain';
-import { userUseCaseFactory } from '@/user/factories/use-cases.factories';
+import { userUseCaseFactory } from '@/user/factories';
 
 interface RegisterActionResult {
   message: string;
@@ -28,7 +28,6 @@ const registerAction = async (user: User): Promise<RegisterActionResult> => {
       error: false,
     };
   } catch (error) {
-    console.error('Registration Error:', error);
     return { message: `Error: ${(error as Error).message}`, error: true };
   }
 };

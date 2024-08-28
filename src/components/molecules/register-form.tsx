@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
 import { RegisterUser, User } from '@/user/domain';
-import { registerAction } from '@/user/infrastructure/actions/user.form-actions';
+import { registerAction } from '@/user/infrastructure/actions/user-form.actions';
 import { InputForm } from '../atoms/input-form';
 import { toast } from '../ui/use-toast';
 

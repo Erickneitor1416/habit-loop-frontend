@@ -17,6 +17,7 @@ spec:
       containers:
         - name: habit-loop-frontend
           image: erickneitor/habit-loop-frontend
+          imagePullPolicy: Always
           ports:
             - containerPort: 3001
               protocol: TCP

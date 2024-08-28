@@ -3,14 +3,34 @@ import { RegisterUserUseCase } from '@/user/application/register-user.use-case';
 import { RegisterUser, User } from '@/user/domain';
 import { userUseCaseFactory } from '@/user/factories/use-cases.factories';
 
-const registerAction = (user: User): boolean => {
+interface RegisterActionResult {
+  message: string;
+  error: boolean;
+}
+
+const registerAction = async (user: User): Promise<RegisterActionResult> => {
   const parsed = RegisterUser.safeParse(user);
-  if (!parsed.success) return parsed.success;
-  userUseCaseFactory
-    .createUseCases(RegisterUserUseCase)
-    .execute(
-      new User(parsed.data.name, parsed.data.email, parsed.data.password),
+
+  if (!parsed.success) {
+    return { message: parsed.error.message, error: true };
+  }
+
+  const { name, email, password } = parsed.data;
+
+  try {
+    const useCase = userUseCaseFactory.createUseCases(RegisterUserUseCase);
+    const registeredUser = await useCase.execute(
+      new User(name, email, password),
     );
-  return true;
+
+    return {
+      message: `${registeredUser?.email} registered successfully!`,
+      error: false,
+    };
+  } catch (error) {
+    console.error('Registration Error:', error);
+    return { message: `Error: ${(error as Error).message}`, error: true };
+  }
 };
+
 export { registerAction };

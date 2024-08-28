@@ -21,30 +21,11 @@ export function RegistrationForm() {
   });
 
   const onSubmit = async (data: User) => {
-    const isSaved = registerAction(data);
-    if (!isSaved) {
+    const isSaved = await registerAction(data);
+    if (isSaved) {
       toast({
-        title: 'Invalid form data',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">
-              {
-                "The form data you've entered is invalid. Please check the form fields and try again"
-              }
-            </code>
-          </pre>
-        ),
-      });
-    } else {
-      toast({
-        title: 'User registered',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">
-              {'The user has been registered successfully'}
-            </code>
-          </pre>
-        ),
+        title: isSaved.message,
+        variant: isSaved.error ? 'destructive' : 'default',
       });
     }
   };
@@ -56,7 +37,7 @@ export function RegistrationForm() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-2/3 space-y-6"
         >
-          <div className="text-2xl font-bold ">Register</div>
+          <h2 className="text-2xl font-bold">Sign up</h2>
           <FormField
             control={form.control}
             name="name"

@@ -1,2 +1,2 @@
 export { RegistrationForm } from './register-form';
-export { ModeToggle } from './toggle-mode';
+export { ModeToggle } from '../ui/toggle-mode';

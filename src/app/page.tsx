@@ -1,7 +1,7 @@
 import { ModeToggle, RegistrationForm } from '@/components/molecules';
 import Image from 'next/image';
 
-export default function Home() {
+export default function RegisterPage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center md:py-24 py-2">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">

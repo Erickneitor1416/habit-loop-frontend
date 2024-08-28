@@ -1,18 +1,16 @@
+import { BACKEND_URL } from '@/constants/constants';
+import { httpClient } from '@/lib/http-client';
 import { User, UserRepository } from '@/user/domain';
 
 export class HabitApiUserRepository extends UserRepository {
-  baseUrl = 'http://localhost:3000';
+  baseUrl = BACKEND_URL;
+  private httpClientInstance = httpClient;
   async save(user: User): Promise<User | null> {
-    const response = await fetch(`${this.baseUrl}/user/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    });
-    const responseJson = await response.json();
-    console.log(responseJson, JSON.stringify(user));
-    return responseJson;
+    const response = await this.httpClientInstance.post<User>(
+      '/user/register',
+      user,
+    );
+    return response;
   }
   findById(userId: string): Promise<User | null> {
     throw new Error('Method not implemented.');

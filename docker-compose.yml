@@ -4,19 +4,32 @@ services:
       context: .
       target: production
     ports:
-      - 3000:3001
+      - 3001:3001
     volumes:
       - .:/app
       - /app/.next
+    environment:
+      - NEXT_BACKEND_URL=http://habit-loop-production:3000
+    networks:
+      - habit-loop-backend_habit-loop-network
   dev:
     build:
       context: .
       target: dev
+    env_file:
+      - .env
     ports:
-      - 3000:3001
+      - 3001:3001
     volumes:
       - .:/app
       - /app/node_modules
       - /app/.next
     environment:
       - WATCHPACK_POLLING=true
+    networks:
+      - habit-loop-backend_habit-loop-network
+
+
+networks:
+  habit-loop-backend_habit-loop-network:
+    external: true

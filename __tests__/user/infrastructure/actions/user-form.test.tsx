@@ -4,12 +4,12 @@ import { UserUseCaseFactory, userUseCaseFactory } from '@/user/factories';
 import { MemoryUserRepository, registerAction } from '@/user/infrastructure';
 import { describe, expect, it, vi } from 'vitest';
 
+vi.spyOn(UserUseCaseFactory.prototype, 'createUseCases').mockImplementation(
+  useCase => {
+    return new useCase(MemoryUserRepository.getInstance());
+  },
+);
 describe(registerAction, () => {
-  vi.spyOn(UserUseCaseFactory.prototype, 'createUseCases').mockImplementation(
-    useCase => {
-      return new useCase(MemoryUserRepository.getInstance());
-    },
-  );
   it('should return an error if the user object is invalid', async () => {
     const invalidUser = { name: '', email: '', password: '' } as User;
 

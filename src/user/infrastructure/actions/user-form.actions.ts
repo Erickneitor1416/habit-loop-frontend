@@ -2,13 +2,9 @@
 import { RegisterUserUseCase } from '@/user/application/register-user.use-case';
 import { RegisterUser, User } from '@/user/domain';
 import { userUseCaseFactory } from '@/user/factories';
+import { Result } from '../types/result';
 
-interface RegisterActionResult {
-  message: string;
-  error: boolean;
-}
-
-const registerAction = async (user: User): Promise<RegisterActionResult> => {
+const registerAction = async (user: User): Promise<Result> => {
   const parsed = RegisterUser.safeParse(user);
 
   if (!parsed.success) {

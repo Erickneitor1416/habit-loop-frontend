@@ -33,8 +33,13 @@ export class MemoryUserRepository extends UserRepository {
     return Promise.resolve(user);
   }
 
-  async findByEmail(email: string): Promise<User | null> {
-    const user = this.users.find(user => user.email === email);
+  async findByEmailAndPassword(
+    email: string,
+    password: string,
+  ): Promise<User | null> {
+    const user = this.users.find(
+      user => user.email === email && user.password === password,
+    );
     if (!user) {
       return Promise.resolve(null);
     }

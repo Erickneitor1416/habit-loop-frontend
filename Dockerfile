@@ -33,11 +33,11 @@ COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/public ./public
 
-CMD npm start
+CMD ["npm", "start"]
 
 FROM base AS dev
 ENV NODE_ENV=development
 ENV PORT=3001
 RUN npm install
 COPY . .
-CMD npm run dev
+CMD ["npm", "run", "dev"]

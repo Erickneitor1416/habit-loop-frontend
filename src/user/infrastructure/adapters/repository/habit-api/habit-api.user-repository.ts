@@ -12,7 +12,7 @@ export class HabitApiUserRepository extends UserRepository {
     );
     return response;
   }
-  findById(userId: string): Promise<User | null> {
+  findByEmail(userEmail: string): Promise<User | null> {
     throw new Error('Method not implemented.');
   }
   update(user: User): Promise<void> {
@@ -21,8 +21,11 @@ export class HabitApiUserRepository extends UserRepository {
   async findByEmailAndPassword(
     email: string,
     password: string,
-  ): Promise<User | null> {
-    const response = await this.httpClientInstance.post<User>('/user/login', {
+  ): Promise<{ accessToken: string; user: User } | null> {
+    const response = await this.httpClientInstance.post<{
+      accessToken: string;
+      user: User;
+    }>('/user/login', {
       email,
       password,
     });

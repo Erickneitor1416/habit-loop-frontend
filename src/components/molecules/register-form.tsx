@@ -1,14 +1,12 @@
 'use client';
-
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-
 import { InputForm } from '@/components/atoms/input-form';
 import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
 import { toast } from '@/components/ui/use-toast';
 import { RegisterUser, User } from '@/user/domain';
 import { registerAction } from '@/user/infrastructure/actions/user-form.actions';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
 export function RegistrationForm() {
   const form = useForm<User>({

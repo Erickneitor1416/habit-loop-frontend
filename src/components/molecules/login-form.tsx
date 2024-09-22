@@ -1,15 +1,15 @@
 'use client';
-
 import { InputForm } from '@/components/atoms/input-form';
 import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
 import { toast } from '@/components/ui/use-toast';
 import { LoginUser, User } from '@/user/domain';
-import { loginAction } from '@/user/infrastructure/actions/user-form.actions';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-
 export function LoginForm() {
+  const router = useRouter();
   const form = useForm<User>({
     resolver: zodResolver(LoginUser),
     defaultValues: {
@@ -20,13 +20,19 @@ export function LoginForm() {
   });
 
   const onSubmit = async (data: User) => {
-    const isSaved = await loginAction(data);
-    if (isSaved) {
+    const response = await signIn('credentials', {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
+    if (response?.error) {
       toast({
-        title: isSaved.message,
-        variant: isSaved.error ? 'destructive' : 'default',
+        title: response.error,
+        variant: 'destructive',
       });
+      return;
     }
+    router.push('/');
   };
 
   return (

@@ -1,3 +1,4 @@
+import { loginHandle } from '@/user/infrastructure/next-auth';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
@@ -6,27 +7,14 @@ const handler = NextAuth({
     CredentialsProvider({
       name: 'Habit Loop',
       credentials: {
-        email: { label: 'email', type: 'email', placeholder: 'test@test.com' },
+        email: { label: 'email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials, req) {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`,
-          {
-            method: 'POST',
-            body: JSON.stringify({
-              email: credentials?.email,
-              password: credentials?.password,
-            }),
-            headers: { 'Content-Type': 'application/json' },
-          },
-        );
-        const user = await res.json();
-        console.log(user);
-
-        if (user.error) throw user;
-
-        return user;
+      async authorize(credentials) {
+        if (!credentials) {
+          return null;
+        }
+        return await loginHandle({ ...credentials });
       },
     }),
   ],
@@ -38,9 +26,6 @@ const handler = NextAuth({
       session.user = token;
       return session;
     },
-  },
-  pages: {
-    signIn: 'auth/login',
   },
 });
 export { handler as GET, handler as POST };

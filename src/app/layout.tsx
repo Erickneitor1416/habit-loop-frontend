@@ -1,8 +1,8 @@
 import { ThemeProvider } from '@/components/ui/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
+import { Session } from '@/contexts';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
-import { SessionProvider } from 'next-auth/react';
 import { Inter } from 'next/font/google';
 import '../styles/globals.css';
 const inter = Inter({
@@ -28,7 +28,7 @@ export default function RootLayout({
           inter.variable,
         )}
       >
-        <SessionProvider>
+        <Session>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -38,7 +38,7 @@ export default function RootLayout({
             {children}
             <Toaster />
           </ThemeProvider>
-        </SessionProvider>
+        </Session>
       </body>
     </html>
   );

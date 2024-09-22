@@ -1,7 +1,7 @@
 import { ModeToggle } from '@/components/molecules';
 import Image from 'next/image';
 
-export default function RegisterPage({
+export default function AuthPage({
   children,
 }: Readonly<{
   children: React.ReactNode;

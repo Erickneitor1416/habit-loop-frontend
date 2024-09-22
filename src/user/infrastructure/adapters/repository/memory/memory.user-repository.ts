@@ -7,15 +7,15 @@ export class MemoryUserRepository extends UserRepository {
     super();
     this.users = [];
   }
-  async findById(userId: string): Promise<User | null> {
-    const user = this.users.find(user => user.id === userId);
+  async findByEmail(userEmail: string): Promise<User | null> {
+    const user = this.users.find(user => user.email === userEmail);
     if (!user) {
       return Promise.resolve(null);
     }
     return Promise.resolve(user);
   }
   async update(user: User): Promise<void> {
-    const index = this.users.findIndex(u => u.id === user.id);
+    const index = this.users.findIndex(u => u.email === user.email);
     this.users[index] = user;
   }
   public static getInstance(): MemoryUserRepository {
@@ -33,11 +33,16 @@ export class MemoryUserRepository extends UserRepository {
     return Promise.resolve(user);
   }
 
-  async findByEmail(email: string): Promise<User | null> {
-    const user = this.users.find(user => user.email === email);
+  async findByEmailAndPassword(
+    email: string,
+    password: string,
+  ): Promise<{ accessToken: string; user: User } | null> {
+    const user = this.users.find(
+      user => user.email === email && user.password === password,
+    );
     if (!user) {
       return Promise.resolve(null);
     }
-    return Promise.resolve(user);
+    return Promise.resolve({ accessToken: 'accessToken', user });
   }
 }

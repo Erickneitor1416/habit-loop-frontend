@@ -1,5 +1,5 @@
 FROM node:20-alpine AS base
-RUN apk add --no-cache g++ make py3-pip libc6-compat
+RUN apk add --no-cache g++ libc6-compat make py3-pip
 
 WORKDIR /app
 
@@ -13,9 +13,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm ci
-
-RUN npm run build
+RUN npm ci \
+    && npm run build
 
 FROM base AS production
 
@@ -24,22 +23,21 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3001
 
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
-
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
+RUN addgroup -g 1001 -S nodejs \
+    && adduser -S nextjs -u 1001 \
+    && mkdir .next \
+    && chown nextjs:nodejs .next
 
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/public ./public
 
-CMD npm start
+CMD ["npm", "start"]
 
 FROM base AS dev
 ENV NODE_ENV=development
 ENV PORT=3001
 RUN npm install
 COPY . .
-CMD npm run dev
+CMD ["npm", "run", "dev"]

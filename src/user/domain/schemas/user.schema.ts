@@ -12,3 +12,8 @@ export const RegisterUser = z.object({
       'Password must contain at least one special character',
     ),
 });
+
+export const LoginUser = z.object({
+  email: z.string().trim().email('Invalid email address'),
+  password: z.string().min(12, 'Password is too short'),
+});

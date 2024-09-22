@@ -10,7 +10,6 @@ describe(UserUseCaseFactory, () => {
   beforeEach(() => {
     userRepository = MemoryUserRepository.getInstance();
     userUseCaseFactory = new UserUseCaseFactory(userRepository);
-    console.log(userUseCaseFactory);
   });
 
   it('should create an instance of UserUseCaseFactory', () => {

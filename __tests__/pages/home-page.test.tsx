@@ -1,10 +1,10 @@
-import RegisterPage from '@/app/page';
+import HomePage from '@/app/page';
 import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-describe(RegisterPage, () => {
+describe(HomePage, () => {
   it('should render', () => {
-    const { getByRole } = render(<RegisterPage />);
+    const { getByRole } = render(<HomePage />);
     const main = within(getByRole('main'));
     expect(
       main.getByRole('heading', { level: 1, name: /Habit Loop app/i }),
@@ -14,7 +14,7 @@ describe(RegisterPage, () => {
   });
 
   it('should display the header with the correct text and ModeToggle component', () => {
-    render(<RegisterPage />);
+    render(<HomePage />);
 
     expect(screen.getByText(/Habit Loop app/)).toBeDefined();
     expect(screen.getByText(/by Erick Muñoz/)).toBeDefined();
@@ -22,18 +22,8 @@ describe(RegisterPage, () => {
     expect(screen.getByRole('button', { name: 'Toggle theme' })).toBeDefined();
   });
 
-  it('should render the RegistrationForm component', () => {
-    render(<RegisterPage />);
-
-    expect(
-      screen.getByRole('button', {
-        name: 'Register',
-      }),
-    ).toBeDefined();
-  });
-
   it('should render the logo image', () => {
-    render(<RegisterPage />);
+    render(<HomePage />);
     const logo = screen.getByAltText('Logo');
     expect(logo).toBeDefined();
     expect(logo).toHaveProperty(

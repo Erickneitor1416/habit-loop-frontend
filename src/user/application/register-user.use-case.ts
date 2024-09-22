@@ -1,9 +1,8 @@
 import { User, UserRepository } from '@/user/domain';
+import { BaseUseCase } from './base.use-case';
 
-export class RegisterUserUseCase {
-  constructor(private readonly userRepository: UserRepository) {}
-
+export class RegisterUserUseCase extends BaseUseCase<UserRepository> {
   async execute(user: User): Promise<User | null> {
-    return await this.userRepository.save(user);
+    return await this.repository.save(user);
   }
 }

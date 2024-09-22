@@ -1,5 +1,5 @@
 import { UserRepository } from '@/user/domain';
-import { HabitApiUserRepository } from '../infrastructure';
+import { HabitApiUserRepository } from '@/user/infrastructure';
 
 export class UserUseCaseFactory {
   private static instance: UserUseCaseFactory;

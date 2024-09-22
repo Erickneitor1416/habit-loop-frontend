@@ -12,13 +12,23 @@ export class HabitApiUserRepository extends UserRepository {
     );
     return response;
   }
-  findById(userId: string): Promise<User | null> {
+  findByEmail(userEmail: string): Promise<User | null> {
     throw new Error('Method not implemented.');
   }
   update(user: User): Promise<void> {
     throw new Error('Method not implemented.');
   }
-  findByEmail(email: string): Promise<User | null> {
-    throw new Error('Method not implemented.');
+  async findByEmailAndPassword(
+    email: string,
+    password: string,
+  ): Promise<{ accessToken: string; user: User } | null> {
+    const response = await this.httpClientInstance.post<{
+      accessToken: string;
+      user: User;
+    }>('/user/login', {
+      email,
+      password,
+    });
+    return response;
   }
 }

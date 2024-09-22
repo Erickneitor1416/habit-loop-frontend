@@ -10,7 +10,7 @@ import {
 } from '../ui/form';
 import { Input, InputProps } from '../ui/input';
 export interface InputFormProps extends InputProps {
-  description: string;
+  description?: string;
   label: string;
 }
 
@@ -51,7 +51,7 @@ export const InputForm = forwardRef<HTMLInputElement, InputFormProps>(
             )}
           </div>
         </FormControl>
-        <FormDescription>{description}</FormDescription>
+        {description && <FormDescription>{description}</FormDescription>}
         <FormMessage />
       </FormItem>
     );

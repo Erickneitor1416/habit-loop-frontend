@@ -26,9 +26,6 @@ const handler = NextAuth({
       session.user = token;
       return session;
     },
-    async authorized({ req, token }) {
-      return !!token;
-    },
   },
   pages: {
     signIn: '/auth/login',

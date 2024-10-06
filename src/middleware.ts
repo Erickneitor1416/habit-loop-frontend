@@ -37,10 +37,5 @@ const redirectTo = (path: string, req: NextRequest) =>
   NextResponse.redirect(new URL(path, req.nextUrl.origin).href);
 
 export const config = {
-  matcher: [
-    `${routes.DASHBOARD}/:path*`,
-    routes.AUTH.REGISTER,
-    routes.AUTH.LOGIN,
-    routes.AUTH.ROOT,
-  ],
+  matcher: ['/dashboard/:path*', '/auth/register', '/auth/login', '/'],
 };

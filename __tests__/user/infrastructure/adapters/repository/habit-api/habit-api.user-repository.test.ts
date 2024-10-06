@@ -21,7 +21,7 @@ describe('HabitApiUserRepository', () => {
 
     const httpClientInstanceSpy = vi
       .spyOn(httpClient, 'post')
-      .mockResolvedValue(user);
+      .mockResolvedValue({ user, accessToken: 'token' });
 
     const savedUser = await userRepository.save(user);
 

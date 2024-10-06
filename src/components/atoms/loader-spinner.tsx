@@ -2,7 +2,9 @@
 
 import { motion } from 'framer-motion';
 
-export default function Loading() {
+export default function Loading({
+  withTitle = true,
+}: Readonly<{ withTitle?: boolean }>) {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <motion.div
@@ -16,7 +18,7 @@ export default function Loading() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.01, duration: 0.5 }}
       >
-        Habit Loop
+        {withTitle && 'Habit Loop'}
       </motion.h1>
     </div>
   );

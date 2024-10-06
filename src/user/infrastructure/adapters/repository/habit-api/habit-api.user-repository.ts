@@ -4,13 +4,13 @@ import { User, UserRepository } from '@/user/domain';
 
 export class HabitApiUserRepository extends UserRepository {
   baseUrl = BACKEND_URL;
-  private httpClientInstance = httpClient;
+  private readonly httpClientInstance = httpClient;
   async save(user: User): Promise<User | null> {
-    const response = await this.httpClientInstance.post<User>(
-      '/user/register',
-      user,
-    );
-    return response;
+    const response = await this.httpClientInstance.post<{
+      accessToken: string;
+      user: User;
+    }>('/user/register', user);
+    return response.user;
   }
   findByEmail(userEmail: string): Promise<User | null> {
     throw new Error('Method not implemented.');

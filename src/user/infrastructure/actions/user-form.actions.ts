@@ -14,7 +14,6 @@ const registerAction = async (user: User): Promise<Result> => {
   try {
     const useCase = userUseCaseFactory.createUseCases(RegisterUserUseCase);
     const registeredUser = await useCase.execute(parsed.data);
-
     return {
       message: `${registeredUser?.email} registered successfully!`,
       error: false,

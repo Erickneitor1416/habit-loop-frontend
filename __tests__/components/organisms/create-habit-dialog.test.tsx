@@ -1,7 +1,20 @@
 import { CreateHabitDialog } from '@/components/organisms';
 import { DialogTrigger } from '@/components/ui/dialog';
 import { act, render, screen } from '@testing-library/react';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('next-auth/react', () => ({
+  useSession: vi.fn(() => ({
+    data: {
+      user: {
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        accessToken: 'fakeAccessToken123',
+      },
+    },
+    status: 'authenticated',
+  })),
+}));
 
 describe('CreateHabitDialog', () => {
   beforeEach(() => {

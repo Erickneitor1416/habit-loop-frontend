@@ -1,5 +1,5 @@
+import { BaseUseCase } from '@/shared/base.use-case';
 import { User, UserRepository } from '@/user/domain';
-import { BaseUseCase } from './base.use-case';
 
 export class LoginUserUseCase extends BaseUseCase<UserRepository> {
   async execute(

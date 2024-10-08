@@ -6,9 +6,11 @@ import { toast } from '@/components/ui/use-toast';
 import { RegisterUser, User } from '@/user/domain';
 import { registerAction } from '@/user/infrastructure/actions/user-form.actions';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 export function RegistrationForm() {
+  const router = useRouter();
   const form = useForm<User>({
     resolver: zodResolver(RegisterUser),
     defaultValues: {
@@ -25,6 +27,8 @@ export function RegistrationForm() {
         title: isSaved.message,
         variant: isSaved.error ? 'destructive' : 'default',
       });
+      form.reset();
+      router.push('/auth/login');
     }
   };
 

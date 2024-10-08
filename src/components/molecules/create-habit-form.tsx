@@ -3,18 +3,37 @@ import { InputForm, Select } from '@/components/atoms';
 import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
 import { Form, FormField } from '@/components/ui/form';
+import { toast } from '@/components/ui/use-toast';
+import { Frequency, Habit, HabitSchema } from '@/habit/domain';
+import { createHabitAction } from '@/habit/infrastructure/actions/habit-form.actions';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 
 export function CreateHabitForm() {
-  const form = useForm<{
-    field1: string;
-    field2: string;
-    field3: string;
-    field4: string;
-  }>();
-
-  const onSubmit = async (data: any) => {
-    console.log(data);
+  const form = useForm<Habit>({
+    resolver: zodResolver(HabitSchema),
+    defaultValues: {
+      name: '',
+      description: '',
+    },
+  });
+  const { data: session } = useSession();
+  const onSubmit = async (data: Habit) => {
+    let message: string = '';
+    let variant: 'default' | 'destructive' = 'default';
+    try {
+      message = await createHabitAction(data, session?.user?.accessToken ?? '');
+    } catch (error) {
+      message = (error as Error).message;
+      variant = 'destructive';
+    } finally {
+      form.reset();
+      toast({
+        title: message,
+        variant,
+      });
+    }
   };
 
   return (
@@ -25,14 +44,14 @@ export function CreateHabitForm() {
       >
         <FormField
           control={form.control}
-          name="field1"
+          name="name"
           render={({ field }) => (
             <InputForm label="Name" placeholder="Enter habit name" {...field} />
           )}
         />
         <FormField
           control={form.control}
-          name="field2"
+          name="description"
           render={({ field }) => (
             <InputForm
               label="Description"
@@ -43,10 +62,10 @@ export function CreateHabitForm() {
         />
         <FormField
           control={form.control}
-          name="field3"
+          name="frequency"
           render={({ field }) => (
             <Select
-              options={['option1']}
+              options={Object.values(Frequency)}
               label="Frequency"
               placeholder="Enter habit frequency"
               {...field}
@@ -55,12 +74,14 @@ export function CreateHabitForm() {
         />
         <FormField
           control={form.control}
-          name="field4"
+          name="goal"
           render={({ field }) => (
             <InputForm
-              label="Goals"
-              placeholder="Enter habit goals"
+              label="Goal"
+              placeholder="Enter habit goal"
+              type="number"
               {...field}
+              onChange={e => field.onChange(parseInt(e.target.value))}
             />
           )}
         />

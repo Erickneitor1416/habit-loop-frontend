@@ -16,11 +16,11 @@ import { getServerSession } from 'next-auth';
 
 export async function DropdownProfileMenu() {
   const session = await getServerSession(config);
-  const name = session?.user?.name;
+  const name = session?.user?.name!;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar name={name ?? 'Guest'} />
+        <Avatar name={name} />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 mr-2">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>

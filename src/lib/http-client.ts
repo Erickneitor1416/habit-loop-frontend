@@ -1,8 +1,8 @@
 import { BACKEND_URL } from '@/constants/constants';
 
-class HttpClient {
+export class HttpClient {
   public static instance: HttpClient;
-  private baseUrl: string;
+  private readonly baseUrl: string;
   private headers: HeadersInit;
   constructor(baseUrl: string, headers: HeadersInit = {}) {
     this.baseUrl = baseUrl;
@@ -35,10 +35,13 @@ class HttpClient {
     return this.handleResponse<T>(response);
   }
   public static getInstance(baseUrl: string, headers: HeadersInit = {}) {
-    if (!HttpClient.instance) {
+    if (!this.instance) {
       HttpClient.instance = new HttpClient(baseUrl, headers);
     }
     return HttpClient.instance;
+  }
+  public setBearer(token: string) {
+    this.headers = { ...this.headers, Authorization: `Bearer ${token}` };
   }
 }
 export const httpClient = HttpClient.getInstance(BACKEND_URL);

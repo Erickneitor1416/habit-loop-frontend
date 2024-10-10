@@ -13,7 +13,7 @@ export default function CreateHabitDialog({
   return (
     <Dialog>
       {children}
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="w-full sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Create New Habit</DialogTitle>
           <DialogDescription>Start building healthy habits.</DialogDescription>

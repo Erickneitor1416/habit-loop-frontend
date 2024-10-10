@@ -1,7 +1,27 @@
 import { CreateHabitDialog } from '@/components/organisms';
 import { DialogTrigger } from '@/components/ui/dialog';
 import { act, render, screen } from '@testing-library/react';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('next-auth/react', () => ({
+  useSession: vi.fn(() => ({
+    data: {
+      user: {
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        accessToken: 'fakeAccessToken123',
+      },
+    },
+    status: 'authenticated',
+  })),
+}));
+vi.mock('next/navigation', () => ({
+  useRouter: vi.fn(() => {
+    return {
+      back: vi.fn(),
+    };
+  }),
+}));
 
 describe('CreateHabitDialog', () => {
   beforeEach(() => {
@@ -34,7 +54,7 @@ describe('CreateHabitDialog', () => {
     const dialogDescription = screen.getByText(
       /start building healthy habits\./i,
     );
-    const createHabitForm = screen.getByText('Enter habit frequency');
+    const createHabitForm = screen.getByDisplayValue('DAILY');
     expect(dialogTitle).toBeDefined();
     expect(dialogDescription).toBeDefined();
     expect(createHabitForm).toBeDefined();

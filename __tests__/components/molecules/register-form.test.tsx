@@ -12,6 +12,14 @@ vi.mock('@/components/ui/use-toast', () => ({
   toast: vi.fn(),
 }));
 
+vi.mock('next/navigation', () => ({
+  useRouter: vi.fn(() => {
+    return {
+      push: vi.fn(),
+    };
+  }),
+}));
+
 describe('RegistrationForm', () => {
   const setup = () => {
     render(<RegistrationForm />);

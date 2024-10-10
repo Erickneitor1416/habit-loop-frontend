@@ -24,6 +24,7 @@ vi.mock('next/navigation', () => ({
   useRouter: vi.fn(() => {
     return {
       push: vi.fn(),
+      back: vi.fn(),
     };
   }),
 }));
@@ -88,7 +89,7 @@ describe('CreateHabitForm', () => {
     await waitFor(() => {
       expect(screen.getByText('Name is required')).toBeDefined();
       expect(screen.getByText('Description is required')).toBeDefined();
-      expect(screen.getAllByText('Required')).toHaveLength(2);
+      expect(screen.getAllByText('Required')).toHaveLength(1);
     });
   });
 

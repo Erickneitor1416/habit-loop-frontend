@@ -8,14 +8,17 @@ import { Frequency, Habit, HabitSchema } from '@/habit/domain';
 import { createHabitAction } from '@/habit/infrastructure/actions/habit-form.actions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 export function CreateHabitForm() {
+  const router = useRouter();
   const form = useForm<Habit>({
     resolver: zodResolver(HabitSchema),
     defaultValues: {
       name: '',
       description: '',
+      frequency: Frequency.DAILY,
     },
   });
   const { data: session } = useSession();
@@ -29,6 +32,7 @@ export function CreateHabitForm() {
       variant = 'destructive';
     } finally {
       form.reset();
+      router.back();
       toast({
         title: message,
         variant,
@@ -69,6 +73,7 @@ export function CreateHabitForm() {
               label="Frequency"
               placeholder="Enter habit frequency"
               {...field}
+              disabled
             />
           )}
         />

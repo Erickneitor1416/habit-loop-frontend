@@ -13,6 +13,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Habit Loop',
   description: 'That helps you build habits.',
+  icons: {
+    icon: '/habit-loop-logo.png',
+  },
 };
 
 export default function RootLayout({

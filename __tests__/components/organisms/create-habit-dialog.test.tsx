@@ -15,6 +15,13 @@ vi.mock('next-auth/react', () => ({
     status: 'authenticated',
   })),
 }));
+vi.mock('next/navigation', () => ({
+  useRouter: vi.fn(() => {
+    return {
+      back: vi.fn(),
+    };
+  }),
+}));
 
 describe('CreateHabitDialog', () => {
   beforeEach(() => {
@@ -47,7 +54,7 @@ describe('CreateHabitDialog', () => {
     const dialogDescription = screen.getByText(
       /start building healthy habits\./i,
     );
-    const createHabitForm = screen.getByText('Enter habit frequency');
+    const createHabitForm = screen.getByDisplayValue('DAILY');
     expect(dialogTitle).toBeDefined();
     expect(dialogDescription).toBeDefined();
     expect(createHabitForm).toBeDefined();

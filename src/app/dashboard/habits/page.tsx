@@ -43,7 +43,7 @@ const myHabits: Habit[] = [
 
 export default function HabitPage() {
   return (
-    <div className="container mx-auto px-4 py-8 mt-20 sm:mt-0">
+    <div className="container mx-auto px-4 py-20 sm:py-10">
       <HabitHeader />
       <div className="space-y-8">
         <HabitList title="Today's Progress" habits={todaysHabits} />

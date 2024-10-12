@@ -4,9 +4,9 @@ export default function Layout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <section className="flex h-screen flex-col items-center justify-center min-w-full">
+    <section className="flex flex-col min-h-screen">
       <NavBar />
-      {children}
+      <main className="flex-grow container mx-auto px-0 py-8">{children}</main>
     </section>
   );
 }

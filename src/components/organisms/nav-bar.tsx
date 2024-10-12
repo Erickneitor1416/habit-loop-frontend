@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 export default function NavBar() {
   return (
-    <nav className="fixed left-0 top-0 flex w-full items-center justify-between lg:gap-0 gap-3 border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-4 pt-6 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:border lg:bg-gray-200 p-4 lg:dark:bg-zinc-800/30">
+    <nav className="fixed top-0 flex w-[99%] items-center justify-between lg:gap-0 gap-3 border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:border lg:bg-gray-200 p-3 lg:dark:bg-zinc-800/30 sm:rounded-md my:0 sm:my-2">
       <Link href="/dashboard">
         <div className="flex items-center flex-row justify-start gap-1 overflow-hidden max-h-11">
           <Image

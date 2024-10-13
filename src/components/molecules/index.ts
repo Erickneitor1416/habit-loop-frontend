@@ -1,6 +1,8 @@
 export { ModeToggle } from '../ui/toggle-mode';
 export { CreateHabitForm } from './create-habit-form';
 export { DropdownProfileMenu } from './dropdown-profile-menu';
+export { HabitHeader } from './habit-header';
+export { HabitItem } from './habit-item';
 export { LoginButton } from './login-button';
 export { LoginForm } from './login-form';
 export { RegisterButton } from './register-button';

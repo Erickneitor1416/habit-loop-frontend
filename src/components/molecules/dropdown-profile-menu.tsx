@@ -11,8 +11,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { config } from '@/lib/next-auth-config';
-import { Plus, User } from 'lucide-react';
+import { ListTodo, Plus } from 'lucide-react';
 import { getServerSession } from 'next-auth';
+import Link from 'next/link';
 
 export async function DropdownProfileMenu() {
   const session = await getServerSession(config);
@@ -26,10 +27,12 @@ export async function DropdownProfileMenu() {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <User className="h-[1.2rem] w-[1.2rem] mr-2" />
-            Profile
-          </DropdownMenuItem>
+          <Link href="/dashboard/habits">
+            <DropdownMenuItem>
+              <ListTodo className="h-[1.2rem] w-[1.2rem] mr-2" />
+              Habits
+            </DropdownMenuItem>
+          </Link>
           <ToggleModeMenuItem />
           <DialogTrigger className="min-w-full">
             <DropdownMenuItem>

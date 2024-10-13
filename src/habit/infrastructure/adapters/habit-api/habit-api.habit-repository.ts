@@ -15,8 +15,9 @@ export class HabitApiHabitRepository extends HabitRepository {
   delete(habit: Habit): Promise<void> {
     throw new Error('Method not implemented.');
   }
-  findAll(userId: string): Promise<Habit[]> {
-    throw new Error('Method not implemented.');
+  async findAll(): Promise<Habit[]> {
+    const response = await this.httpClientInstance.get<Habit[]>('/habit');
+    return response;
   }
   findById(id: string): Promise<Habit | null> {
     throw new Error('Method not implemented.');

@@ -1,3 +1,4 @@
+'use server';
 import { Avatar, DropDownMenuLogOut } from '@/components/atoms';
 import { ToggleModeMenuItem } from '@/components/molecules';
 import { DialogTrigger } from '@/components/ui/dialog';

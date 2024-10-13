@@ -25,6 +25,7 @@ export default defineConfig({
         '**/index.ts',
         '**/index.tsx',
         '**/lib/**',
+        '**/loading.tsx',
       ],
     },
   },

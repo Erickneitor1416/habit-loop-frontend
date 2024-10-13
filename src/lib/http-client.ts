@@ -23,6 +23,7 @@ export class HttpClient {
   async get<T>(path: string): Promise<T> {
     const response = await fetch(`${this.baseUrl}${path}`, {
       headers: this.headers,
+      cache: 'force-cache',
     });
     return this.handleResponse<T>(response);
   }

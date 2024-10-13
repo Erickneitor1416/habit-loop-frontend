@@ -13,6 +13,11 @@ vi.spyOn(HabitUseCaseFactory.prototype, 'createUseCases').mockImplementation(
     return new useCase(MemoryHabitRepository.getInstance());
   },
 );
+
+vi.mock('next/cache', () => ({
+  revalidatePath: vi.fn(),
+}));
+
 describe(createHabitAction, () => {
   const mockedToken = 'mocked-token';
   it('should return an error if the habit object is invalid', async () => {

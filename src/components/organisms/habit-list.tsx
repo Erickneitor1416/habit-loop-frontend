@@ -1,11 +1,15 @@
 import { HabitItem } from '@/components/molecules';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Habit } from '@/habit/domain';
-import { randomInt } from 'crypto';
+
+export interface HabitItemProps extends Habit {
+  completed?: boolean;
+  progress?: number;
+}
 
 type HabitListProps = {
   title: string;
-  habits: Habit[];
+  habits: HabitItemProps[];
 };
 
 export default function HabitList({ title, habits }: Readonly<HabitListProps>) {
@@ -16,13 +20,7 @@ export default function HabitList({ title, habits }: Readonly<HabitListProps>) {
       </CardHeader>
       <CardContent>
         {habits.map(habit => (
-          <HabitItem
-            key={habit.id}
-            name={habit.name}
-            frequency={habit.frequency}
-            progress={randomInt(0, 100)}
-            completed={habit.id ? Math.random() >= 0.5 : undefined}
-          />
+          <HabitItem {...habit} key={habit.id} />
         ))}
       </CardContent>
     </Card>

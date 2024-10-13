@@ -8,7 +8,7 @@ export class MemoryHabitRepository extends HabitRepository {
     if (!habit) return Promise.resolve(null);
     return Promise.resolve(habit);
   }
-  async findAll(userId: string): Promise<Habit[]> {
+  async findAll(): Promise<Habit[]> {
     return Promise.resolve(this.habits);
   }
   async save(habit: Habit): Promise<Habit | null> {

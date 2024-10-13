@@ -5,7 +5,7 @@ import { Loader } from 'lucide-react';
 type HabitItemProps = {
   name: string;
   frequency: string;
-  progress: number;
+  progress?: number;
   completed?: boolean;
 };
 
@@ -28,10 +28,12 @@ export function HabitItem({
           <p className="text-sm text-gray-500">{frequency}</p>
         </div>
       </div>
-      <div className="w-1/3">
-        <Progress value={progress} />
-        <span className="text-sm text-gray-500">{progress}%</span>
-      </div>
+      {progress && (
+        <div className="w-1/3">
+          <Progress value={progress} />
+          <span className="text-sm text-gray-500">{progress}%</span>
+        </div>
+      )}
     </div>
   );
 }
